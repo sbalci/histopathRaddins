@@ -1,2 +1,0 @@
-# histopathRaddins
-histopathR RStudio addins
