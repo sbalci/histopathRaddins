@@ -7,3 +7,8 @@ Name: PubMed Search
 Description: Form a PubMed search formula.
 Binding: pubmed_search
 Interactive: false
+
+Name: Decision Rates
+Description: Decision Rates.
+Binding: decision
+Interactive: false

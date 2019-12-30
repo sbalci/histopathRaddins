@@ -3,7 +3,7 @@
 #'
 #'@import shiny
 #'@import miniUI
-#'@import leaflet
+# #' @import leaflet
 #'@import shinyWidgets
 #'@import glue
 #'
@@ -12,7 +12,7 @@
 #'
 #' @examples
 #'
-# pubmed_search <- function() {
+pubmed_search <- function() {
 
 ui <-
   miniUI::miniPage(
@@ -146,7 +146,7 @@ server <- function(input, output, session) {
            "OR" = "OR",
            "NOT" = "NOT")
   
-    bool_1(bool)
+    bool_1(paste0(" ", bool, " "))
     
   })
   
@@ -155,13 +155,13 @@ server <- function(input, output, session) {
   
   observeEvent( input$bool2 , {
     
-    bool<- 
+    bool <- 
       switch(input$bool2,
              "AND" = "AND",
              "OR" = "OR",
              "NOT" = "NOT")
     
-    bool_2(bool)
+    bool_2(paste0(" ", bool, " "))
     
   })
   
@@ -172,7 +172,7 @@ server <- function(input, output, session) {
 
   observeEvent( input$text1 , {
     
-    text_1(input$text1)
+    text_1(paste0("'", input$text1,"'"))
     
   })
   
@@ -181,7 +181,7 @@ server <- function(input, output, session) {
   
   observeEvent( input$text2 , {
     
-    text_2(input$text2)
+    text_2(paste0("'", input$text2,"'"))
     
   })
   
@@ -190,7 +190,7 @@ server <- function(input, output, session) {
   
   observeEvent( input$text3 , {
     
-    text_3(input$text3)
+    text_3(paste0("'", input$text3, "'"))
     
   })
   
@@ -215,7 +215,7 @@ server <- function(input, output, session) {
     )
     
     
-    field_1(field)
+    field_1(paste0("[", field, "]"))
     
   })
   
@@ -239,7 +239,7 @@ server <- function(input, output, session) {
     )
     
     
-    field_2(field)
+    field_2(paste0("[", field, "]"))
     
   })
   
@@ -264,7 +264,7 @@ server <- function(input, output, session) {
     )
     
     
-    field_3(field)
+    field_3(paste0("[", field, "]"))
     
   })
   
@@ -315,22 +315,33 @@ server <- function(input, output, session) {
   
   aaa <- reactive({
     
+    singlesearch <- !input$bool1 %in% c("AND", "OR", "NOT")
+    doublesearch <- !singlesearch & !input$bool2 %in% c("AND", "OR", "NOT")
     
-    # if(length(input$bool1) + length(input$bool2) >1) {
     
+    if (singlesearch) {
     
+      expr <- paste0(text_1(), field_1())    
+      
+    } else if (doublesearch){
+      
+      expr <- paste0(text_1(), field_1(),
+                     bool_1(),
+                     text_2(), field_2())
+      
+    } else {
+      
     
-    expr <- paste0("'",
-      text_1(), "'[", field_1(), "] ",
-                   bool_1(), " '", 
-                   text_2(), "'[", field_2(), "] ",
-                   bool_2()," '",
-                   text_3(), "'[", field_3(), "] "
+    expr <- paste0(text_1(), field_1(),
+                   bool_1(),
+                   text_2(), field_2(),
+                   bool_2(),
+                   text_3(), field_3()
                    )
     
-    return(expr)
     
-    # }
+    
+    }
     
   })
   
@@ -387,7 +398,7 @@ server <- function(input, output, session) {
 }
 
 shiny::runGadget(ui, server,
-                 viewer = dialogViewer(dialogName = "PubMed Search", width = 600, height = 600)
+                 viewer = shiny::dialogViewer(dialogName = "PubMed Search", width = 600, height = 600)
                  # viewer = paneViewer()
                  )
-# }
+}
