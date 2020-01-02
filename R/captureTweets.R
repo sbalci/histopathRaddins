@@ -11,7 +11,7 @@
 #'
 #' @examples
 #'
-# captureTweets <- function(inputValue1, inputValue2) {
+captureTweets <- function() {
     
     ui <- miniUI::miniPage(
         miniUI::gadgetTitleBar("Capture Tweet"),
@@ -69,7 +69,7 @@
     )
     
     
-# }
+}
 
 
 #### 

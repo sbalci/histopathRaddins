@@ -1,12 +1,15 @@
 library(shiny)
 library(miniUI)
 #' Decision
+#' 
 #' # http://www.biyoistatistik.hacettepe.edu.tr/doktora/BIS_710.pdf
+#' https://www.wikizeroo.org/index.php?q=aHR0cHM6Ly9lbi53aWtpcGVkaWEub3JnL3dpa2kvU2Vuc2l0aXZpdHlfYW5kX3NwZWNpZmljaXR5
+#' 
 #'@import shiny
 #'@import miniUI
 #'@import shinyWidgets
 #'@import scales
-# decision <- function(inputValue1, inputValue2) {
+decision <- function() {
 ui <- miniUI::miniPage(
   miniUI::gadgetTitleBar("Decision Rates"),
   miniUI::miniTabstripPanel(
@@ -42,5 +45,5 @@ shiny::runGadget(ui, server,
                  # viewer = paneViewer()
 )
 
-# }
+}
 
