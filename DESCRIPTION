@@ -26,3 +26,18 @@ Imports:
   rstudioapi (>= 0.5),
   glue,
   shinyWidgets
+Depends: 
+    glue,
+    miniUI,
+    renv,
+    rmarkdown,
+    rstudioapi,
+    rtweet,
+    scales,
+    shiny,
+    shinyWidgets,
+    testthat
+Remotes: 
+    rstudio/renv,
+    rstudio/rstudioapi,
+    rstudio/shiny
